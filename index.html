@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Safari localStorage bug</title>
+</head>
+<body>
+  <button id="write">Write data</button>
+  <button id="clear">Clear data</button>
+  <pre id="result"></pre>
+  <script type="text/javascript">
+    var write = document.getElementById('write');
+    var clear = document.getElementById('clear');
+    var result = document.getElementById('result');
+    
+    function render() {
+      result.innerHTML = JSON.stringify(localStorage);
+    }
+    
+    write.addEventListener('click', function () {
+      localStorage.setItem('empty', '');
+      localStorage.setItem('non_empty', 'non_empty');
+
+      render();
+    });
+    
+    clear.addEventListener('click', function () {
+      localStorage.clear();
+
+      render();
+    });
+    
+    render();
+  </script>
+</body>
+</html>
