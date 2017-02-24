@@ -5,27 +5,36 @@
   <title>Safari localStorage bug</title>
 </head>
 <body>
-  <button id="write">Write data</button>
-  <button id="clear">Clear data</button>
-  <pre id="result"></pre>
+  <div>
+    <p>Steps to reproduce:</p>
+    <ul>
+      <li>Open this page in Safari</li>
+      <li>Press "write" button</li>
+      <li>Close all tabs with this page</li>
+      <li>Open this page again in new tab</li>
+    </ul>
+    <hr>
+    <p><strong>Expected:</strong> "empty" item should present with empty value</p>
+    <p><strong>Actual:</strong> there is only "non_empty" item</p>
+  </div>
+
+  <div>
+    <button id="write">Write data</button>
+    <pre id="result"></pre>
+  </div>
+
   <script type="text/javascript">
     var write = document.getElementById('write');
-    var clear = document.getElementById('clear');
     var result = document.getElementById('result');
     
     function render() {
-      result.innerHTML = JSON.stringify(localStorage);
+      result.innerHTML = JSON.stringify(localStorage, null, '  ');
     }
     
     write.addEventListener('click', function () {
+      localStorage.clear();
       localStorage.setItem('empty', '');
       localStorage.setItem('non_empty', 'non_empty');
-
-      render();
-    });
-    
-    clear.addEventListener('click', function () {
-      localStorage.clear();
 
       render();
     });
